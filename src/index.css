@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Surfaces */
+  --color-bg: #0d0d0d;
+  --color-surface: #17181a;
+  --color-surface-2: #202225;
+  --color-surface-3: #292b2f;
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-border-strong: rgba(255, 255, 255, 0.18);
+
+  /* Ink */
+  --color-ink: #ffffff;
+  --color-ink-secondary: #c3c2b7;
+  --color-ink-muted: #898781;
+
+  /* Brand / accent */
+  --color-accent: #3987e5;
+  --color-accent-dim: #1c5cab;
+  --color-accent-2: #d95926;
+
+  /* Categorical (muscle groups / series), dark-mode steps, fixed order */
+  --color-cat-1: #3987e5;
+  --color-cat-2: #d95926;
+  --color-cat-3: #199e70;
+  --color-cat-4: #c98500;
+  --color-cat-5: #d55181;
+  --color-cat-6: #2fb82f;
+  --color-cat-7: #9085e9;
+  --color-cat-8: #e66767;
+
+  /* Status */
+  --color-good: #0ca30c;
+  --color-warning: #fab219;
+  --color-critical: #d03b3b;
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/*
+ * Plain CSS custom properties (not inside @theme): these are only ever read
+ * via raw `var(...)` in inline styles/SVG fill, never through a Tailwind
+ * utility class, so Tailwind's content scanner can't see them "in use" and
+ * would otherwise tree-shake them out of the build if declared in @theme.
+ */
+:root {
+  /* Heatmap ramp (calendar), 0..4, receding toward surface */
+  --color-heat-0: #1c1d20;
+  --color-heat-1: #4a2f16;
+  --color-heat-2: #86451a;
+  --color-heat-3: #c05a1f;
+  --color-heat-4: #f47b2c;
+
+  /* Body map ramp (muscle volume), 0..4 */
+  --color-muscle-0: #2a2c30;
+  --color-muscle-1: #1c4d81;
+  --color-muscle-2: #1c68b0;
+  --color-muscle-3: #2a86e0;
+  --color-muscle-4: #5ea6ff;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-accent-dim);
+  color: white;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+input,
+select,
+textarea,
+button {
+  font-family: inherit;
+}
+
+/* Avoid iOS zoom-on-focus for inputs < 16px */
+input,
+select,
+textarea {
+  font-size: 16px;
+}
