@@ -6,8 +6,14 @@ import { VitePWA } from 'vite-plugin-pwa'
 
 const dirname = path.dirname(fileURLToPath(import.meta.url))
 
+// Set VITE_BASE_PATH when hosting under a subpath (e.g. a GitHub Pages
+// project site at https://<user>.github.io/<repo>/). Defaults to root,
+// which is correct for Netlify/Vercel/custom domains.
+const base = process.env.VITE_BASE_PATH || '/'
+
 // https://vite.dev/config/
 export default defineConfig({
+  base,
   resolve: {
     alias: {
       '@': path.resolve(dirname, 'src'),
@@ -26,19 +32,19 @@ export default defineConfig({
         background_color: '#0d0d0d',
         display: 'standalone',
         orientation: 'portrait',
-        start_url: '/',
-        scope: '/',
+        start_url: base,
+        scope: base,
         icons: [
-          { src: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
-          { src: '/icons/icon-512.png', sizes: '512x512', type: 'image/png' },
+          { src: `${base}icons/icon-192.png`, sizes: '192x192', type: 'image/png' },
+          { src: `${base}icons/icon-512.png`, sizes: '512x512', type: 'image/png' },
           {
-            src: '/icons/maskable-192.png',
+            src: `${base}icons/maskable-192.png`,
             sizes: '192x192',
             type: 'image/png',
             purpose: 'maskable',
           },
           {
-            src: '/icons/maskable-512.png',
+            src: `${base}icons/maskable-512.png`,
             sizes: '512x512',
             type: 'image/png',
             purpose: 'maskable',
@@ -47,7 +53,7 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,ico,woff2}'],
-        navigateFallback: '/index.html',
+        navigateFallback: `${base}index.html`,
         runtimeCaching: [
           {
             urlPattern: ({ request }) =>
